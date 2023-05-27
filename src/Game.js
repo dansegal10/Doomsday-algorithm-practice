@@ -28,22 +28,22 @@ function Game(props) {
   useEffect(() => {
     if (selectedDayOfWeek !== undefined) {
       setRunning(false);
+      if (selectedDayOfWeek === expectedDayOfWeek) {
+        scores.push([time, true]);
+      } else {
+        scores.push([time, false]);
+      }
+      setScores(scores);
     }
   }, [selectedDayOfWeek]);
 
   const startNewRound = () => {
     let nextDay = generateRandomDay();
     setCurrentDay(nextDay.format("Y-MM-DD"));
-    if (selectedDayOfWeek === expectedDayOfWeek) {
-      scores.push([time, true]);
-    } else {
-      scores.push([time, false]);
-    }
     setSelectedDayOfWeek(undefined);
     setExpectedDayOfWeek(parseDateToWeekDayNumber(nextDay));
     setRunning(true);
     setTime(0);
-    setScores(scores);
   };
 
   return (
