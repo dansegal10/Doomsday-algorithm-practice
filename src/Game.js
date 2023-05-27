@@ -73,7 +73,7 @@ function Game(props) {
           justify={"end"}
           margin={{ right: "large", left: "large" }}
         >
-          <GitHubButton href="https://github.com/grantas33/Doomsday-algorithm-practice" data-icon="octicon-star" data-show-count="true" aria-label="Star me on GitHub">Star</GitHubButton>
+          <GitHubButton href="https://github.com/dansegal10/Doomsday-algorithm-practice" data-icon="octicon-star" data-show-count="true" aria-label="Star me on GitHub">Star</GitHubButton>
         </Box>
       </Box>
     </Box>
