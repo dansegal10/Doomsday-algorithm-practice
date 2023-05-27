@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Doomsday-algorithm-practice/static/css/main.e8e61451.chunk.css",
-    "main.js": "/Doomsday-algorithm-practice/static/js/main.c068987f.chunk.js",
-    "main.js.map": "/Doomsday-algorithm-practice/static/js/main.c068987f.chunk.js.map",
+    "main.js": "/Doomsday-algorithm-practice/static/js/main.746405a0.chunk.js",
+    "main.js.map": "/Doomsday-algorithm-practice/static/js/main.746405a0.chunk.js.map",
     "runtime-main.js": "/Doomsday-algorithm-practice/static/js/runtime-main.ee6c00cc.js",
     "runtime-main.js.map": "/Doomsday-algorithm-practice/static/js/runtime-main.ee6c00cc.js.map",
     "static/js/2.afda636e.chunk.js": "/Doomsday-algorithm-practice/static/js/2.afda636e.chunk.js",
     "static/js/2.afda636e.chunk.js.map": "/Doomsday-algorithm-practice/static/js/2.afda636e.chunk.js.map",
     "index.html": "/Doomsday-algorithm-practice/index.html",
-    "precache-manifest.e73b61e3e71ea1d116adacd7d1acf2e1.js": "/Doomsday-algorithm-practice/precache-manifest.e73b61e3e71ea1d116adacd7d1acf2e1.js",
+    "precache-manifest.e56f85ec878fe09c42bb36b8f44c6627.js": "/Doomsday-algorithm-practice/precache-manifest.e56f85ec878fe09c42bb36b8f44c6627.js",
     "service-worker.js": "/Doomsday-algorithm-practice/service-worker.js",
     "static/css/main.e8e61451.chunk.css.map": "/Doomsday-algorithm-practice/static/css/main.e8e61451.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.ee6c00cc.js",
     "static/js/2.afda636e.chunk.js",
     "static/css/main.e8e61451.chunk.css",
-    "static/js/main.c068987f.chunk.js"
+    "static/js/main.746405a0.chunk.js"
   ]
 }
