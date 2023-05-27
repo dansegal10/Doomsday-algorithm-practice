@@ -1,6 +1,6 @@
-const getHighScore = () => localStorage.getItem('highScore') || 0;
-const setHighScore = (score) => {
-  localStorage.setItem('highScore', score)
+const getHighScore = (type) => parseInt(localStorage.getItem('highScore' + type)) || 0;
+const setHighScore = (type, score) => {
+  localStorage.setItem('highScore' + type, score)
 };
 
 export const storage = {
