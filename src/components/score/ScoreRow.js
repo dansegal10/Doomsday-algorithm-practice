@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'grommet';
-import formatScoreTime from "../functions/formatScoreTime.js";
+import formatScoreTime from "../../functions/formatScoreTime.js";
 
 
 function ScoreRow(props) {

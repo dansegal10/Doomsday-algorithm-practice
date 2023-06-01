@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Heading, Text } from 'grommet';
 import ScoreRow from './ScoreRow';
-import { useHighScoreState } from "../functions/useHighScoreState.js";
+import { useHighScoreState } from "../../functions/useHighScoreState.js";
 import AverageScore from "./AverageScore.js";
 
-const averagesToShow = [5, 12];
 
 function ScoreBoard(props) {
   let scores = props.scores;
+  let averagesToShow = props.averagesToShow;
+  let type = props.type;
   let [streak, setStreak] = useState(0);
-  let [bestStreak, setBestStreak] = useHighScoreState("streak");
+  let [bestStreak, setBestStreak] = useHighScoreState(type + "streak");
 
   useEffect(() => {
     if (scores.length > 0) {
@@ -52,7 +53,7 @@ function ScoreBoard(props) {
         style={{ padding: "15px" }}
         justify={'center'}>
         {averagesToShow.map((averageSize, i) =>
-          <AverageScore key={i} scores={scores} averageSize={averageSize} />
+          <AverageScore key={i} scores={scores} averageSize={averageSize} type={type}/>
         )}
         <Text>Current Streak: {streak}</Text>
         <Text>Best Streak: {bestStreak}</Text>

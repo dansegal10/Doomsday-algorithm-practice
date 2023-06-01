@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, Layer} from "grommet";
-import useDidUpdate from "../functions/useDidUpdate";
+import useDidUpdate from "../../functions/useDidUpdate";
 import ExplanationModal from "./ExplanationModal";
 
 export default function FooterBar(props) {

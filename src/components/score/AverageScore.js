@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text } from 'grommet';
-import formatScoreTime from "../functions/formatScoreTime.js";
-import { useHighScoreState } from "../functions/useHighScoreState.js";
+import formatScoreTime from "../../functions/formatScoreTime.js";
+import { useHighScoreState } from "../../functions/useHighScoreState.js";
 
 const calulateAverageOfLastScores = (scores, lastAmount) => {
   let scoreCopy = scores.slice(0);
@@ -34,6 +34,7 @@ const formatAverageTime = (averageTime) => {
 function AverageScore(props) {
   let scores = props.scores;
   let averageSize = props.averageSize;
+  let type = props.type;
   let [average, setAverage] = useState(0);
   let [bestAverage, setBestAverage] = useHighScoreState(averageSize.toString());
 

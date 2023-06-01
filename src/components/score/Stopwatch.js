@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import formatScoreTime from "../functions/formatScoreTime.js";
+import formatScoreTime from "../../functions/formatScoreTime.js";
 import { Box, Heading } from 'grommet';
 
 function Stopwatch(props) {
