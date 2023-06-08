@@ -20,10 +20,10 @@ function Header(props) {
                     <Menu key={i} label={name} items={value.map(v => {
                         return {
                             label: v,
-                            onClick: () => { chooseGame({name: name, extra: v}) }
+                            onClick: () => { chooseGame(name, v) }
                         }
                     })} /> :
-                    <Button key={i} hoverIndicator onClick={() => chooseGame({name: name})}> {name} </Button>
+                    <Button key={i} hoverIndicator onClick={() => chooseGame(name, "")}> {name} </Button>
             )}
         </Box>
     );

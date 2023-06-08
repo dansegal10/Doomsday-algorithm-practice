@@ -11,8 +11,10 @@ function ScoreBoard(props) {
   let type = props.type;
   let [streak, setStreak] = useState(0);
   let [bestStreak, setBestStreak] = useHighScoreState(type + "streak");
+  let [newHighScore, setNewHighScore] = useState(false);
 
   useEffect(() => {
+    setNewHighScore(false);
     if (scores.length > 0) {
       let lastScore = scores[scores.length - 1]
       if (lastScore[1] === false) {
@@ -22,6 +24,7 @@ function ScoreBoard(props) {
         let currentStreak = streak + 1;
         if (bestStreak < currentStreak) {
           setBestStreak(currentStreak);
+          setNewHighScore(true);
         }
         setStreak(currentStreak);
       }
@@ -52,11 +55,11 @@ function ScoreBoard(props) {
         align={'start'}
         style={{ padding: "15px" }}
         justify={'center'}>
+        <Text>Current Streak: {streak}</Text>
+        <Text color={newHighScore ? "orange" : "white"}>Best Streak: {bestStreak}</Text>
         {averagesToShow.map((averageSize, i) =>
           <AverageScore key={i} scores={scores} averageSize={averageSize} type={type}/>
         )}
-        <Text>Current Streak: {streak}</Text>
-        <Text>Best Streak: {bestStreak}</Text>
       </Box>
     </Box>
   );

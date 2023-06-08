@@ -36,21 +36,29 @@ function AverageScore(props) {
   let averageSize = props.averageSize;
   let type = props.type;
   let [average, setAverage] = useState(0);
-  let [bestAverage, setBestAverage] = useHighScoreState(averageSize.toString());
+  let [bestAverage, setBestAverage] = useHighScoreState(type + averageSize.toString());
+  let [newHighScore, setNewHighScore] = useState(false);
 
   useEffect(() => {
+    setNewHighScore(false);
     let currentAverage = calulateAverageOfLastScores(scores, averageSize);
     setAverage(currentAverage);
 
-    if (bestAverage === 0 || (currentAverage > 0 && (bestAverage <= 0 || bestAverage > currentAverage))) {
+    if (currentAverage > 0 && bestAverage === 0 || (currentAverage > 0 && (bestAverage <= 0 || bestAverage > currentAverage))) {
       setBestAverage(Math.max(currentAverage, 0));
+      setNewHighScore(true);
     }
   }, [scores.length]);
 
   return (
     <Box>
-      <Text>Average of {averageSize}: {formatAverageTime(average)}</Text>
-      <Text>Best Average of {averageSize}: {formatAverageTime(bestAverage)}</Text>
+      {averageSize === 1
+        ? <Text color={newHighScore ? "orange" : "white"}>Top Score: {formatAverageTime(bestAverage)}</Text>
+        : <Box>
+          <Text>Average of {averageSize}: {formatAverageTime(average)}</Text>
+          <Text color={newHighScore ? "orange" : "white"}>Best Average of {averageSize}: {formatAverageTime(bestAverage)}</Text>
+        </Box>
+      }
     </Box>
 
   );

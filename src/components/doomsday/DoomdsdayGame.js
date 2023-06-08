@@ -4,7 +4,6 @@ import FooterBar from "./FooterBar";
 import DayButtonGrid from "./DayButtonGrid";
 import Stopwatch from "../score/Stopwatch";
 import ScoreBoard from "../score/ScoreBoard";
-import GitHubButton from 'react-github-btn'
 const moment = require('moment');
 const momentRandom = require('moment-random');
 
@@ -66,13 +65,6 @@ function DoomdsdayGame(props) {
         <ScoreBoard scores={scores} type="doomsday" averagesToShow={[5, 12]}/>
       </Box>
       <FooterBar onContinueClick={startNewRound} isVisible={selectedDayOfWeek !== undefined} currentDay={currentDay} />
-      <Box
-        direction={"row"}
-        justify={"end"}
-        margin={{ right: "large", left: "large" }}
-      >
-        <GitHubButton href="https://github.com/dansegal10/Doomsday-algorithm-practice" data-icon="octicon-star" data-show-count="true" aria-label="Star me on GitHub">Star</GitHubButton>
-      </Box>
     </Box>
   );
 }
