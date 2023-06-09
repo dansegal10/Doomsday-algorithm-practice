@@ -14,7 +14,7 @@ function Header(props) {
             gap="small"
             justify="between"
         >
-            <Heading level={3}>Segalos</Heading>
+            <Heading level={4}>Segalos</Heading>
             {Object.entries(games).map(([name, value], i) =>
                 typeof (value) === "object" ?
                     <Menu key={i} label={name} items={value.map(v => {

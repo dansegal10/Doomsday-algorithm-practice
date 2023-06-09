@@ -28,7 +28,7 @@ function MindPalaceGame(props) {
     // Remove the trailing "-" if present
     result = result.replace(/-$/, "");
 
-    return result;
+    return result.toUpperCase();
   }
 
   function generateTextWithLength() {

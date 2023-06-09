@@ -16,8 +16,8 @@ const theme = {
 };
 
 const doomsday = "Doomsday Algorithm";
-const numberMemory = "Number Mind Palace";
-const alphabetMemory = "Alphabet Mind Palace";
+const numberMemory = "Numbers";
+const alphabetMemory = "Alphabet";
 function App() {
   const [currentGame, setCurrentGame] = useState(doomsday);
   const [currentOption, setCurrentOption] = useState(0);
@@ -28,8 +28,8 @@ function App() {
   }
 
   const games = {};
-  games[numberMemory] = [10, 20, 30];
   games[doomsday] = "";
+  games[numberMemory] = [10, 20, 30];
   games[alphabetMemory] = [10, 20, 30];
 
   return (
@@ -48,7 +48,7 @@ function App() {
                   key={currentGame + currentOption}
                   type={"alphabetMemory" + currentOption}
                   numberLength={currentOption}
-                  choices={["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X"]} />
+                  choices={["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]} />
                 : <Text>Invalid Game Selected</Text>
         }
         <Box
