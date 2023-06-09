@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0fee9b7395d39e966c9bb1efbafdd4c2",
+    "revision": "5e876a3e3a2eae42cba72f787851d863",
     "url": "/Doomsday-algorithm-practice/index.html"
   },
   {
-    "revision": "6ea81eb1ad2fc45796f3",
+    "revision": "b8d5c5192e85222b1d75",
     "url": "/Doomsday-algorithm-practice/static/css/main.e8e61451.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Doomsday-algorithm-practice/static/js/2.d4ea0611.chunk.js"
   },
   {
-    "revision": "6ea81eb1ad2fc45796f3",
-    "url": "/Doomsday-algorithm-practice/static/js/main.4eb239b2.chunk.js"
+    "revision": "b8d5c5192e85222b1d75",
+    "url": "/Doomsday-algorithm-practice/static/js/main.40d912b3.chunk.js"
   },
   {
     "revision": "ba9a99ca48f48f2c5154",
