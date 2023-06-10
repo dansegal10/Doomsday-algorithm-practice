@@ -26,6 +26,7 @@ function DoomdsdayGame(props) {
   useEffect(() => {
     if (selectedDayOfWeek !== undefined) {
       setRunning(false);
+      // if (selectedDayOfWeek === 0) {
       if (selectedDayOfWeek === expectedDayOfWeek) {
         scores.push([time, true]);
       } else {

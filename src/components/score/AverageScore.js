@@ -10,8 +10,11 @@ const trimScores = (scores) => {
     successSorted = successSorted.slice(1);
     slicedWorst = true;
   }
+  if (!successSorted[0][1]) {
+    return successSorted;
+  }
   let sortedScores = successSorted.sort((a, b) => a[0] - b[0]);
-  if(!slicedWorst) {
+  if (!slicedWorst) {
     sortedScores = sortedScores.slice(0, -1);
   }
   return sortedScores.slice(1);
