@@ -7,7 +7,8 @@ import AverageScore from "./AverageScore.js";
 
 function ScoreBoard(props) {
   let scores = props.scores;
-  let averagesToShow = props.averagesToShow;
+  let averagesToShow = props.averagesToShow ?? [];
+  let trimmedAveragesToShow = props.trimmedAveragesToShow ?? [];
   let type = props.type;
   let [streak, setStreak] = useState(0);
   let [bestStreak, setBestStreak] = useHighScoreState(type + "streak");
@@ -37,7 +38,7 @@ function ScoreBoard(props) {
       direction={"row"}
       align={'stretch'}
       wrap={true}
-      style={{ padding: "15px" }}
+      style={{ padding: "5px" }}
     >
       <Box
         align={'start'}
@@ -59,6 +60,9 @@ function ScoreBoard(props) {
         <Text color={newHighScore ? "orange" : "white"}>Best Streak: {bestStreak}</Text>
         {averagesToShow.map((averageSize, i) =>
           <AverageScore key={i} scores={scores} averageSize={averageSize} type={type}/>
+        )}
+        {trimmedAveragesToShow.map((averageSize, i) =>
+          <AverageScore key={i} scores={scores} averageSize={averageSize} type={type} isTrimmed={true}/>
         )}
       </Box>
     </Box>

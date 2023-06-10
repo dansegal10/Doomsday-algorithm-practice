@@ -62,7 +62,7 @@ function DoomdsdayGame(props) {
       <DayButtonGrid selectedDayOfWeek={selectedDayOfWeek} setSelectedDayOfWeek={setSelectedDayOfWeek} expectedDayOfWeek={expectedDayOfWeek} />
       <Box align={'center'}>
         <Stopwatch running={running} time={time} setTime={setTime} />
-        <ScoreBoard scores={scores} type="doomsday" averagesToShow={[5, 12]}/>
+        <ScoreBoard scores={scores} type="doomsday" averagesToShow={[1, 3]} trimmedAveragesToShow={[5]}/>
       </Box>
       <FooterBar onContinueClick={startNewRound} isVisible={selectedDayOfWeek !== undefined} currentDay={currentDay} />
     </Box>

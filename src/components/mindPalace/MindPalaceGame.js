@@ -60,16 +60,9 @@ function MindPalaceGame(props) {
     setAnswer("");
   }
 
-  const AbortGame = () => {
-    setRunning(false);
-    setHidden(false);
-    scores.push([time, false]);
-    setScores(scores);
-  }
-
   const handleInput = (input) => {
     setHidden(true);
-    setAnswer(input);
+    setAnswer(input.toUpperCase());
   }
 
   return (
@@ -93,26 +86,20 @@ function MindPalaceGame(props) {
         <Button
           label="Submit"
           onClick={() => SubmitAnswer()}
-          style={{ visibility: (!running ? "hidden" : "visible") }}
+          style={{ marginTop: "15px", visibility: (!running ? "hidden" : "visible") }}
         />
       </Box>
 
       <Box align={'center'}>
         <Stopwatch running={running} time={time} setTime={setTime} />
-        <ScoreBoard scores={scores} type={type + numberLength} averagesToShow={[1, 3]} />
+        <ScoreBoard scores={scores} type={type + numberLength} averagesToShow={[1, 3]} trimmedAveragesToShow={[5]} />
       </Box>
 
       <Box
         direction={"row"}
-        justify={"between"}
+        justify={"end"}
         margin={{ bottom: "small", right: "large", left: "large" }}
       >
-        <Button
-          label="Abort"
-          style={{ visibility: (!running ? "hidden" : "visible") }}
-          onClick={() => AbortGame()}
-        />
-
         <Button
           label="Continue"
           style={{ visibility: (running ? "hidden" : "visible") }}

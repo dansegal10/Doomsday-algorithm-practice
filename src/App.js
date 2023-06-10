@@ -29,8 +29,8 @@ function App() {
 
   const games = {};
   games[doomsday] = "";
-  games[numberMemory] = [10, 20, 30];
-  games[alphabetMemory] = [10, 20, 30];
+  games[numberMemory] = [10, 15, 20, 30];
+  games[alphabetMemory] = [10, 15, 20, 30];
 
   return (
     <Grommet theme={theme} full>
