@@ -4,8 +4,14 @@ import formatScoreTime from "../../functions/formatScoreTime.js";
 import { useHighScoreState } from "../../functions/useHighScoreState.js";
 
 const trimScores = (scores) => {
-  let sortedScores = scores.sort()
-  return sortedScores.slice(1, -1);
+  let successSorted = scores.sort(s => s[1]);
+  let slicedWorst = false;
+  if (!successSorted[0][1]) {
+    successSorted = successSorted.slice(1);
+    slicedWorst = true;
+  }
+  let sortedScores = successSorted.sort(s => s[0]);
+  return sortedScores.slice(1, slicedWorst ? 0 : -1);
 }
 
 const calulateAverageOfLastScores = (scores, lastAmount, trimAvrage) => {
