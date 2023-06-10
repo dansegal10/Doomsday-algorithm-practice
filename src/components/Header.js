@@ -24,7 +24,7 @@ function Header(props) {
                     width="50px"
                     padding="10px"
                     margin="5px 20px"
-                    onClick={() => {console.info("hello"); setOpen(!open)}}
+                    onClick={() => {setOpen(!open)}}
                 >
                     <List style={{ borderRadius: "200px", border: "1px solid white", padding: "5px" }}/>
                 </Button>
