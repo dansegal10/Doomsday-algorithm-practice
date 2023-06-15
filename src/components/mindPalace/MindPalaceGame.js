@@ -74,7 +74,7 @@ function MindPalaceGame(props) {
         animation={{ "type": "fadeIn" }}
       >
         <Box flex={{ grow: 4 }}>
-          <Heading size={"large"} level={'3'} style={{userSelect: "none"}}>
+          <Heading size={"large"} level={'3'} style={{ userSelect: "none" }}>
             {!hidden ? insertIntervaledDash(number) : insertIntervaledDash("X".repeat(answer.length))}
           </Heading>
         </Box>
@@ -90,14 +90,9 @@ function MindPalaceGame(props) {
         />
       </Box>
 
-      <Box align={'center'}>
-        <Stopwatch running={running} time={time} setTime={setTime} />
-        <ScoreBoard scores={scores} type={type + numberLength} averagesToShow={[1, 3]} trimmedAveragesToShow={[5]} />
-      </Box>
-
       <Box
         direction={"row"}
-        justify={"end"}
+        justify={"center"}
         margin={{ bottom: "small", right: "large", left: "large" }}
       >
         <Button
@@ -105,6 +100,12 @@ function MindPalaceGame(props) {
           style={{ visibility: (running ? "hidden" : "visible") }}
           onClick={() => resetGame()}
         />
+      </Box>
+
+      <Box align={'center'}>
+        <Stopwatch running={running} time={time} setTime={setTime} />
+        <ScoreBoard scores={scores} type={type + numberLength} averagesToShow={[1, 3]}
+          trimmedAveragesToShow={numberLength <= 10 ? [5, 10] : [5]} />
       </Box>
     </Box >
   );
