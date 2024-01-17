@@ -119,7 +119,7 @@ export function Spyfall({ exit }) {
       playersWithLocations[
         Math.floor(Math.random() * playersWithLocations.length)
       ];
-    console.info(`Chose location of player i. ${chosenPlayer.index}`);
+    console.info(`Chosen location of player i. ${chosenPlayer.index}`);
     setchosenLocation(chosenPlayer.location);
 
     let invalidSpyIds = [chosenPlayer.index];
