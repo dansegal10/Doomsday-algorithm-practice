@@ -1,62 +1,65 @@
-import { Box, Grommet, Text } from 'grommet';
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import DoomdsdayGame from "./components/doomsday/DoomdsdayGame";
-import MindPalaceGame from "./components/mindPalace/MindPalaceGame";
-import Header from "./components/Header";
-import GitHubButton from 'react-github-btn'
-
+import { Box, Grommet } from "grommet";
+import React, { useState } from "react";
+import GitHubButton from "react-github-btn";
+import "./App.css";
+import { MindGames } from "./views/MindGames";
+import { Spyfall } from "./views/Spyfall";
 
 const theme = {
   global: {
     font: {
-      family: 'Solway'
-    }
+      family: "Solway",
+    },
   },
 };
 
-const doomsday = "Doomsday Algorithm";
-const numberMemory = "Numbers";
-const alphabetMemory = "Alphabet";
+const mindGames = "Mind Games";
+const spyfall = "Spyfall";
+const views = [mindGames, spyfall];
+
 function App() {
-  const [currentGame, setCurrentGame] = useState(doomsday);
-  const [currentOption, setCurrentOption] = useState(0);
-
-  const chooseNewGame = (game, options) => {
-    setCurrentGame(game);
-    setCurrentOption(options);
-  }
-
-  const games = {};
-  games[doomsday] = "";
-  games[numberMemory] = [10, 15, 20, 30];
-  games[alphabetMemory] = [10, 15, 20, 30];
-
+  // const [selectedView, setSelectedView] = useState(spyfall);
+  const [selectedView, setSelectedView] = useState("");
   return (
     <Grommet theme={theme} full>
-      <Box background={'brand'} direction={'column'} style={{ minHeight: "100%" }}>
-        <Header chooseGame={chooseNewGame} games={games} />
-        {
-          currentGame === doomsday ? <DoomdsdayGame startDate={'1800-01-01'} endDate={'2199-12-31'} />
-            : currentGame === numberMemory ? <MindPalaceGame
-              key={currentGame + currentOption}
-              type={"numberMemory" + currentOption}
-              numberLength={currentOption}
-              choices={["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]} />
-              : currentGame === alphabetMemory ?
-                <MindPalaceGame
-                  key={currentGame + currentOption}
-                  type={"alphabetMemory" + currentOption}
-                  numberLength={currentOption}
-                  choices={["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]} />
-                : <Text>Invalid Game Selected</Text>
-        }
+      <Box
+        background={"brand"}
+        direction={"column"}
+        style={{ minHeight: "100%" }}
+      >
+        {selectedView == "" ? (
+          views.map((view, i) => (
+            <Box
+              key={view}
+              align={"center"}
+              onClick={() => {
+                setSelectedView(view);
+              }}
+            >
+              {i + 1} - {view}
+            </Box>
+          ))
+        ) : selectedView === mindGames ? (
+          <MindGames />
+        ) : selectedView === spyfall ? (
+          <Spyfall exit={() => setSelectedView("")} />
+        ) : (
+          <p>Error - No selected view</p>
+        )}
         <Box
           direction={"row"}
           justify={"end"}
+          style={{ position: "fixed", bottom: 0, right: 0 }}
           margin={{ right: "large", left: "large" }}
         >
-          <GitHubButton href="https://github.com/dansegal10/Doomsday-algorithm-practice" data-icon="octicon-star" data-show-count="true" aria-label="Star me on GitHub">Star</GitHubButton>
+          <GitHubButton
+            href="https://github.com/dansegal10/Doomsday-algorithm-practice"
+            data-icon="octicon-star"
+            data-show-count="true"
+            aria-label="Star me on GitHub"
+          >
+            Star
+          </GitHubButton>
         </Box>
       </Box>
     </Grommet>
