@@ -104,7 +104,7 @@ export function Spyfall({ exit }) {
   };
 
   const getValidLocations = () => {
-    return players.filter((player) => player.location.length > 1);
+    return players.filter((player) => player.location.length > 0);
   };
 
   const initializeSpyfallGame = () => {
@@ -194,6 +194,7 @@ export function Spyfall({ exit }) {
         ></SpyfallAdminStart>
       ) : gameStage === GameStages.passing ? (
         <SpyfallPlayerView
+          key={currentPlayerIndex}
           chosenLocation={chosenLocation}
           currentPlayer={players[currentPlayerIndex]}
           isSpy={chosenSpiesIds.includes(currentPlayerIndex)}
