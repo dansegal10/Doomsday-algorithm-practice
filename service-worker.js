@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Doomsday-algorithm-practice/precache-manifest.c58a0a83addb1851b8366adb351f2e00.js"
+  "/Doomsday-algorithm-practice/precache-manifest.a2e5ae38bfcede3f6908e163ccc232c8.js"
 );
 
 self.addEventListener('message', (event) => {
