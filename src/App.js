@@ -30,7 +30,7 @@ function App() {
     new View(
       "Spy Fall",
       "spy_fall",
-      <Spyfall exit={() => window.location.pathname = "/"} />
+      <Spyfall exit={() => window.location.pathname = routePrefix} />
     ),
   ];
 
