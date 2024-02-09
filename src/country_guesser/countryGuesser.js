@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./emoji.css";
 import useCountries from "./useCountries";
 import { calcCrow } from "./country_utils";
+import {ReactComponent as ReactLogo} from "./countries/ad/vector.svg";
 
 class Guess {
   constructor(guessedCountry, actualCountry) {
@@ -16,6 +17,7 @@ class Guess {
 const maxDisplayedCountries = 40;
 export const CountryGuesser = () => {
   const [countries, countriesDict] = useCountries();
+  const [countryComp, setCountryComp] = useState(<Box />);
   const [selectCountries, setSelectCountries] = useState([]);
   const [round, setRound] = useState(0);
   const [roundOver, setRoundOver] = useState(false);
@@ -76,11 +78,17 @@ export const CountryGuesser = () => {
             }}
           >
             The country is {chosenCountry.name}{" "}
-            
           </Heading>
-          <Heading style={{ fontFamily: "NotoColorEmojiLimited", fontSize: "50px", textAlign: "center" }}>
-              {chosenCountry.flag}
-            </Heading>
+          <Heading
+            style={{
+              fontFamily: "NotoColorEmojiLimited",
+              fontSize: "50px",
+              textAlign: "center",
+            }}
+          >
+            {chosenCountry.flag}
+          </Heading>
+          <ReactLogo style={{width: "100%", height: "150px"}}/>
         </Box>
 
         {roundOver ? (
