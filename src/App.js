@@ -1,8 +1,9 @@
 import { Box, Grommet } from "grommet";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import GitHubButton from "react-github-btn";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import "./App.css";
+import useRoutePrefix from "./functions/useRoutePrefix";
 import { MindGames } from "./views/MindGames";
 import { Spyfall } from "./views/Spyfall";
 
@@ -23,15 +24,19 @@ class View {
 }
 
 function App() {
-  const [selectedView, setSelectedView] = useState("");
+  const [routePrefix] = useRoutePrefix(true);
   const views = [
-    new View("Mind Games", "/mind_games", <MindGames />),
+    new View("Mind Games", "mind_games", <MindGames />),
     new View(
       "Spy Fall",
-      "/spy_fall",
-      <Spyfall exit={() => setSelectedView("")} />
+      "spy_fall",
+      <Spyfall exit={() => window.location.pathname = "/"} />
     ),
   ];
+
+  useEffect(() => {
+    console.info(`Route prefix: ${routePrefix}`);
+  }, [routePrefix]);
 
   return (
     <Grommet theme={theme} full>
@@ -42,13 +47,17 @@ function App() {
       >
         <BrowserRouter>
           <Routes>
-            <Route
-              path="/"
-              element={MainMenu(selectedView, views, setSelectedView)}
-            />
             {views.map((view, i) => (
-              <Route key={i} path={view.url} element={view.componment} />
+              <Route
+                key={i}
+                path={routePrefix + view.url}
+                element={view.componment}
+              />
             ))}
+            <Route
+              path={routePrefix}
+              element={MainMenu(views)}
+            />
           </Routes>
         </BrowserRouter>
       </Box>
@@ -57,7 +66,8 @@ function App() {
 }
 
 export default App;
-function MainMenu(selectedView, views, setSelectedView) {
+function MainMenu(views) {
+  const [routePrefix] = useRoutePrefix(false);
   return (
     <Box
       background={"brand"}
@@ -65,14 +75,7 @@ function MainMenu(selectedView, views, setSelectedView) {
       style={{ minHeight: "100%" }}
     >
       {views.map((view, i) => (
-        <Link
-          key={i}
-          align={"center"}
-          // onClick={() => {
-          // setSelectedView(view);
-          // }}
-          to={view.url}
-        >
+        <Link key={i} align={"center"} to={routePrefix + "/" + view.url}>
           {i + 1} - {view.display}
         </Link>
       ))}

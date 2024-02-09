@@ -1,5 +1,5 @@
 import { Box, Button, Text } from "grommet";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 
 export function SpyfallPlayerView({
   currentPlayer,
@@ -13,10 +13,11 @@ export function SpyfallPlayerView({
   return (
     <Box>
       <Text>Pass to {currentPlayer.name}</Text>
-      <Button 
-        style={{ "border": "2px solid #6FFFB0", "borderRadius": "18px" }}
-      
-      ref={btnRef} onClick={() => sethidden((current) => !current)}>
+      <Button
+        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
+        ref={btnRef}
+        onClick={() => sethidden((current) => !current)}
+      >
         Show Role
       </Button>
       <Text>
@@ -28,7 +29,7 @@ export function SpyfallPlayerView({
       </Text>
 
       <Button
-        style={{ "border": "2px solid #6FFFB0", "borderRadius": "18px" }}
+        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
         onClick={nextPlayer}
         label="Next Player"
       />

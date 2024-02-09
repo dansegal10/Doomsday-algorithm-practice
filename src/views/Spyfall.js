@@ -217,10 +217,11 @@ export function Spyfall({ exit }) {
           {chosenSpiesIds.map((spyId, i) => (
             <Text key={i}>{players[spyId].name}</Text>
           ))}
-          <Link
+          <Button
             style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
-            to="/"
-          >Next Round!</Link>
+            label="Next Round!"
+            onClick={exit}
+          ></Button>
         </Box>
       )}
     </Box>
