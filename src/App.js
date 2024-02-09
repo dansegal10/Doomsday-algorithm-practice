@@ -6,6 +6,7 @@ import "./App.css";
 import useRoutePrefix from "./functions/useRoutePrefix";
 import { MindGames } from "./views/MindGames";
 import { Spyfall } from "./views/Spyfall";
+import { CountryGuesser } from "./country_guesser/countryGuesser";
 
 const theme = {
   global: {
@@ -31,6 +32,11 @@ function App() {
       "Spy Fall",
       "spy_fall",
       <Spyfall exit={() => window.location.pathname = routePrefix} />
+    ),
+    new View(
+      "Country Guesser",
+      "country_guesser",
+      <CountryGuesser />
     ),
   ];
 
