@@ -20,7 +20,7 @@ function Stopwatch(props) {
   }, [running, setTime]);
 
   return (
-    <Box>
+    <Box style={{margin: "0"}}>
       <Heading level={3}>{formatScoreTime(time)}</Heading>
     </Box>
   );

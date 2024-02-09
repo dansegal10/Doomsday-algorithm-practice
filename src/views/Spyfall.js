@@ -4,6 +4,7 @@ import { AddSpyfallPlayer } from "../components/spyfall/AddSpyfallPlayer";
 import { SpyfallPlayerView } from "../components/spyfall/SpyfallPlayerView";
 import { SpyfallPlayer } from "../components/spyfall/spyfallData";
 import Stopwatch from "./../components/score/Stopwatch";
+import { Link } from "react-router-dom";
 
 const GameStages = {
   initializing: 0,
@@ -216,11 +217,10 @@ export function Spyfall({ exit }) {
           {chosenSpiesIds.map((spyId, i) => (
             <Text key={i}>{players[spyId].name}</Text>
           ))}
-          <Button
+          <Link
             style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
-            onClick={exit}
-            label="Next Round!"
-          ></Button>
+            to="/"
+          >Next Round!</Link>
         </Box>
       )}
     </Box>

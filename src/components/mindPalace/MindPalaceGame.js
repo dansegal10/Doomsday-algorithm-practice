@@ -76,7 +76,7 @@ function MindPalaceGame(props) {
         animation={{ type: "fadeIn" }}
       >
         <Box flex={{ grow: 4 }}>
-          <Heading size={"large"} level={"3"} style={{ userSelect: "none" }}>
+          <Heading size={"large"} level={"3"} style={{ userSelect: "none", margin: "10px 5px", textAlign: "center"}}>
             {!hidden
               ? insertIntervaledDash(number)
               : insertIntervaledDash("X".repeat(answer.length))}

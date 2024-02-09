@@ -42,9 +42,9 @@ function ScoreBoard(props) {
     >
       <Box
         align={'start'}
-        style={{ padding: "15px" }}
+        style={{ padding: "5px 10px" }}
         justify={'center'}>
-        <Heading level={3}>Scores:</Heading>
+        <Heading level={3} style={{margin: "0"}}>Scores:</Heading>
         <Box width={"300px"} height={"150px"}
           style={{ border: "2px solid white", padding: "10px", overflowY: "scroll" }}>
           {scores.length > 0 ? (scores.map(([score, success], index) =>
