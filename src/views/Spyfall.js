@@ -4,7 +4,6 @@ import { AddSpyfallPlayer } from "../components/spyfall/AddSpyfallPlayer";
 import { SpyfallPlayerView } from "../components/spyfall/SpyfallPlayerView";
 import { SpyfallPlayer } from "../components/spyfall/spyfallData";
 import Stopwatch from "./../components/score/Stopwatch";
-import { Link } from "react-router-dom";
 
 const GameStages = {
   initializing: 0,
@@ -41,7 +40,6 @@ function SpyfallAdminStart(props) {
         onChange={(event) => props.setspyAmount(event.target.value)}
       />
       <Button
-        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
         onClick={() => props.startPassing()}
         label="Begin!"
       ></Button>
@@ -66,7 +64,6 @@ function SpyfallPlaying(props) {
           : `are ${props.chosenSpiesIds.length} spies`}
       </Text>
       <Button
-        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
         hidden={props.finishingRound < 2}
         onClick={props.finishRound}
         label={props.finishingRound === 0 ? "Finish Round" : "Are you sure?"}
@@ -218,7 +215,6 @@ export function Spyfall({ exit }) {
             <Text key={i}>{players[spyId].name}</Text>
           ))}
           <Button
-            style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
             label="Next Round!"
             onClick={exit}
           ></Button>

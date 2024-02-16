@@ -12,8 +12,8 @@ class Country {
 function load_country(country_object) {
   return new Country(
     country_object["country"],
-    country_object["code_2"],
-    country_object["code_3"],
+    country_object["code_2"].toLowerCase(),
+    country_object["code_3"].toLowerCase(),
     country_object["latitude"],
     country_object["longitude"],
     country_object["emoji_flag"]

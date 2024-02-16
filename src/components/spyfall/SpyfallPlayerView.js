@@ -14,7 +14,6 @@ export function SpyfallPlayerView({
     <Box>
       <Text>Pass to {currentPlayer.name}</Text>
       <Button
-        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
         ref={btnRef}
         onClick={() => sethidden((current) => !current)}
       >
@@ -29,7 +28,6 @@ export function SpyfallPlayerView({
       </Text>
 
       <Button
-        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
         onClick={nextPlayer}
         label="Next Player"
       />

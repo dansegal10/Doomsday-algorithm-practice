@@ -1,9 +1,9 @@
-import { Box, Button, Heading, Select, Text } from "grommet";
+import { Box, Button, Heading, Image, Select } from "grommet";
 import React, { useEffect, useState } from "react";
+import { ReactComponent as ReactLogo } from "./countries/ad/vector.svg";
+import { calcCrow } from "./country_utils";
 import "./emoji.css";
 import useCountries from "./useCountries";
-import { calcCrow } from "./country_utils";
-import {ReactComponent as ReactLogo} from "./countries/ad/vector.svg";
 
 class Guess {
   constructor(guessedCountry, actualCountry) {
@@ -88,7 +88,9 @@ export const CountryGuesser = () => {
           >
             {chosenCountry.flag}
           </Heading>
-          <ReactLogo style={{width: "100%", height: "150px"}}/>
+          <ReactLogo style={{ width: "100%", height: "150px" }} />
+          {/* <RenderSvg name="ad"/> */}
+          <Image src={"./countries/" + chosenCountry.code_2 + "/vector.svg"} />
         </Box>
 
         {roundOver ? (

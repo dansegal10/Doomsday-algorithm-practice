@@ -27,12 +27,12 @@ export function AddSpyfallPlayer({ index, addNewPlayer, finishStage }) {
       />
 
       <Button
-        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
+        margin={{vertical: "10px"}}
         onClick={() => addNewPlayer(playerName, location)}
         label="Next Player"
       ></Button>
       <Button
-        style={{ border: "2px solid #6FFFB0", borderRadius: "18px" }}
+        margin={{vertical: "10px"}}
         onClick={finish}
         label={finishing === 0 ? "Finish Stage" : "Are you sure?"}
       ></Button>

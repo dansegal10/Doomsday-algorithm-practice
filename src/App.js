@@ -1,7 +1,7 @@
-import { Box, Grommet } from "grommet";
+import { Box, Grommet, Anchor } from "grommet";
 import React, { useEffect } from "react";
 import GitHubButton from "react-github-btn";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import useRoutePrefix from "./functions/useRoutePrefix";
 import { MindGames } from "./views/MindGames";
@@ -14,6 +14,18 @@ const theme = {
       family: "Solway",
     },
   },
+  anchor: {
+    color: "light-2",
+  },
+  button: {
+    pad: "small",
+    border: {
+      color: "focus",
+      radius: "18px",
+      width: "2px"
+    },
+    color: "white"
+  }
 };
 
 class View {
@@ -57,7 +69,10 @@ function App() {
               <Route
                 key={i}
                 path={routePrefix + view.url}
-                element={view.componment}
+                element={
+                <Grommet theme={theme} full>
+                  {view.componment}
+                </Grommet>}
               />
             ))}
             <Route
@@ -81,9 +96,9 @@ function MainMenu(views) {
       style={{ minHeight: "100%" }}
     >
       {views.map((view, i) => (
-        <Link key={i} align={"center"} to={routePrefix + "/" + view.url}>
+        <Anchor key={i} alignSelf="center" href={routePrefix + "/" + view.url}>
           {i + 1} - {view.display}
-        </Link>
+        </Anchor>
       ))}
 
       <Box
