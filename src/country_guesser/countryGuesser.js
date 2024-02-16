@@ -24,7 +24,7 @@ export const CountryGuesser = () => {
   const [countriesDict, setcountriesDict] = useState([]);
   // const [countryComp, setCountryComp] = useState(<Box />);
   const [round, setRound] = useState(0);
-  const [roundOver, setRoundOver] = useState(true);
+  const [roundOver, setRoundOver] = useState(false);
   const [chosenCountry, setChosenCountry] = useState();
   const [guessedCountry, setguessedCountry] = React.useState("");
   const [currentGuesses, setCurrentGuesses] = React.useState([]);
