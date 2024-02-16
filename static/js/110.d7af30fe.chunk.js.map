@@ -1,0 +1,1 @@
+{"version":3,"sources":["country_guesser/countries/is/vector.svg"],"names":["module","exports"],"mappings":"qGAAAA,EAAOC,QAAU,IAA0B","file":"static/js/110.d7af30fe.chunk.js","sourcesContent":["module.exports = __webpack_public_path__ + \"static/media/vector.7d810224.svg\";"],"sourceRoot":""}
