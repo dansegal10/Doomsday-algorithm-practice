@@ -7,7 +7,7 @@ export function GuessTable({ children, max = -1 }) {
       <Box
         width="100%"
         direction="row"
-        style={{ position: "relative", border: "1px solid gray", minHeight:"40px", alignItems: "center", alignContent: "center" }}
+        style={{ position: "relative", border: "1px solid gray", minHeight:"40px", alignItems: "center"}}
         key={i}
       >
         {child}

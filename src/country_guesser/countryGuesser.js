@@ -51,8 +51,13 @@ export const CountryGuesser = () => {
       return;
     }
     let chosen = countriesDict[guessedCountry];
-    currentGuesses.push(new Guess(chosen, chosenCountry));
+    let guess = new Guess(chosen, chosenCountry);
+    currentGuesses.push(guess);
     setCurrentGuesses(currentGuesses);
+    if (chosen.name === chosenCountry.name) {
+      setRoundOver(true);
+      return;
+    }
     setguessedCountry("");
     if (currentGuesses.length >= maxGuesses) {
       setRoundOver(true);
@@ -73,11 +78,16 @@ export const CountryGuesser = () => {
         <Box
           align="center"
           background={{ color: "light-4" }}
-          style={{ padding: "40px", borderRadius: "50px" }}
+          style={{
+            padding: "40px",
+            borderRadius: "50px",
+            marginBottom: "15px",
+          }}
         >
           <DynamicSvg
             svgName={chosenCountry.code_2}
             style={{ height: "250px" }}
+            failed={() => nextRound()}
           />
         </Box>
 

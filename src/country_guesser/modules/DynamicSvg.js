@@ -2,7 +2,7 @@ import { Image } from "grommet";
 import React, { useEffect, useState } from "react";
 import { ReactComponent as DefaultSvg } from "../countries/loading.svg";
 
-export function DynamicSvg({ svgName, ...props }) {
+export function DynamicSvg({ svgName, failed, ...props }) {
   const [dynamicSvg, setDynamicSvg] = useState(null);
 
   useEffect(() => {
@@ -16,6 +16,7 @@ export function DynamicSvg({ svgName, ...props }) {
       } catch (error) {
         console.error(error);
         setDynamicSvg(DefaultSvg);
+        failed();
       }
     };
 

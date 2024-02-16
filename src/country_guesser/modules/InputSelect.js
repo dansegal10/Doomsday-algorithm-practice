@@ -27,7 +27,6 @@ export function InputSelect({
   };
 
   useEffect(() => {
-    console.info(options);
     setshownOptions(options.map(optionNameOperand));
   }, [options, optionNameOperand]);
 
