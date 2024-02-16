@@ -1,27 +1,23 @@
 export class Country {
-  constructor(name, code_2, code_3, latitude, longitude, flag) {
-    this.name = name;
-    this.code_2 = code_2;
-    this.code_3 = code_3;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.flag = flag;
+  constructor(country_object) {
+    this.name = country_object["name"]
+    this.code_2 = country_object["code_2"].toLowerCase()
+    this.code_3 = country_object["code_3"].toLowerCase()
+    this.latitude = country_object["lat"]
+    this.longitude = country_object["long"]
+    this.flag = country_object["flag"]
+    this.official_name = country_object["official_name"]
+    this.population = country_object["population"]
+    this.continents = country_object["continents"]
   }
 }
 
 function load_country(country_object) {
-  return new Country(
-    country_object["country"],
-    country_object["code_2"].toLowerCase(),
-    country_object["code_3"].toLowerCase(),
-    country_object["latitude"],
-    country_object["longitude"],
-    country_object["emoji_flag"]
-  );
+  return new Country(country_object);
 }
 
 export function load_countries(countries_object) {
-  let countries = Object.values(countries_object).map((country) =>
+  let countries = countries_object.map((country) =>
     load_country(country)
   );
   return countries;
