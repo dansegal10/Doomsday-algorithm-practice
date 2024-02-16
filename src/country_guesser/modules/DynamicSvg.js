@@ -9,7 +9,7 @@ export function DynamicSvg({ svgName, ...props }) {
     const loadSvg = async () => {
       try {
         const dynamicSvgModule = await import(
-          `../countries/${svgName}.svg`
+          `../countries/${svgName}/vector.svg`
         );
         console.info(dynamicSvgModule);
         setDynamicSvg(() => dynamicSvgModule.default);
