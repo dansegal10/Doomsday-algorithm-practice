@@ -14,18 +14,18 @@ export function CountryGuessRow({ country, distance, direction }) {
       >
         {country.flag}
       </Text>
-      <Text>{distance.toFixed(2)} km</Text>
+      <Text>{distance.toFixed(2).toLocaleString()} km</Text>
       <Text
         style={{
           position: "absolute",
-          right: 0,
+          right: "20px",
           translateX: "-50%",
           translateY: "50%",
           rotate: direction + "deg",
           fontSize: "25px"
         }}
       >
-        ⬆
+        {distance > 0 ? "⬆" : ""}
       </Text>
     </Box>
   );

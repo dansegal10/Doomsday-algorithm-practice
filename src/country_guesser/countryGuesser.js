@@ -1,4 +1,4 @@
-import { Box, Button, Heading } from "grommet";
+import { Box, Button, Heading, Text } from "grommet";
 import React, { useEffect, useState } from "react";
 import { calcCrow, calcDirection } from "./country_utils";
 import "./emoji.css";
@@ -24,14 +24,14 @@ export const CountryGuesser = () => {
   const [countriesDict, setcountriesDict] = useState([]);
   // const [countryComp, setCountryComp] = useState(<Box />);
   const [round, setRound] = useState(0);
-  const [roundOver, setRoundOver] = useState(false);
+  const [roundOver, setRoundOver] = useState(true);
   const [chosenCountry, setChosenCountry] = useState();
   const [guessedCountry, setguessedCountry] = React.useState("");
   const [currentGuesses, setCurrentGuesses] = React.useState([]);
 
   useEffect(() => {
     console.info(`Starting round ${round}`);
-    const [newCountries, newCountriesDict] = getCountries();
+    const [newCountries, newCountriesDict] = getCountries(false);
     setcountries(newCountries);
     setcountriesDict(newCountriesDict);
     let newChosenCountry =
@@ -74,6 +74,8 @@ export const CountryGuesser = () => {
         align={"center"}
         justify={"center"}
         animation={{ type: "fadeIn" }}
+        style={{maxWidth: "850px"}}
+        alignContent="center"
       >
         <Box
           align="center"
@@ -92,19 +94,26 @@ export const CountryGuesser = () => {
         </Box>
 
         {roundOver ? (
-          <Box direction="row">
-            <Heading size={"large"} level={"4"}>
-              The country is {chosenCountry.name}
-            </Heading>
-            <Heading
-              style={{
-                fontFamily: "NotoColorEmojiLimited",
-                textAlign: "center",
-                marginLeft: "5px",
-              }}
-            >
-              {chosenCountry.flag}
-            </Heading>
+          <Box style={{ display: "contents" }}>
+            <Box direction="row">
+              <Heading size={"large"} level={"4"}>
+                The country is {chosenCountry.name}
+              </Heading>
+              <Heading
+                style={{
+                  fontFamily: "NotoColorEmojiLimited",
+                  textAlign: "center",
+                  marginLeft: "5px",
+                }}
+              >
+                {chosenCountry.flag}
+              </Heading>
+            </Box>
+            <Box direction="column">
+              <Text>Population: {chosenCountry.population.toLocaleString()}</Text>
+              <Text>Official Name: {chosenCountry.official_name}</Text>
+              <Text>Continent: {chosenCountry.continents.join(", ")}</Text>
+            </Box>
           </Box>
         ) : (
           <Box />
@@ -128,7 +137,7 @@ export const CountryGuesser = () => {
             />
           </Box>
         ) : (
-          <Button onClick={() => nextRound()}>Next!</Button>
+          <Button onClick={() => nextRound()} label="Next!"/>
         )}
 
         <GuessTable max={maxGuesses}>
