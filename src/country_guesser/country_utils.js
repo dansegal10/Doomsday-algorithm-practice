@@ -9,6 +9,7 @@ export class Country {
     this.official_name = country_object["official_name"]
     this.population = country_object["population"]
     this.continents = country_object["continents"]
+    this.area = country_object["area"]
   }
 }
 

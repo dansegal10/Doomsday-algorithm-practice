@@ -113,6 +113,7 @@ export const CountryGuesser = () => {
               <Text>Population: {chosenCountry.population.toLocaleString()}</Text>
               <Text>Official Name: {chosenCountry.official_name}</Text>
               <Text>Continent: {chosenCountry.continents.join(", ")}</Text>
+              <Text>Area: {chosenCountry.area.toLocaleString()} km<sup>2</sup></Text>
             </Box>
           </Box>
         ) : (
