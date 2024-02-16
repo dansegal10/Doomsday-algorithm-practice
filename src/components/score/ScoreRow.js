@@ -3,11 +3,7 @@ import { Box, Text } from 'grommet';
 import formatScoreTime from "../../functions/formatScoreTime.js";
 
 
-function ScoreRow(props) {
-    let score = props.score;
-    let success = props.success;
-    let index = props.index;
-
+function ScoreRow({score, success, index}) {
     return (
         <Box
             flex={'grow'}

@@ -1,9 +1,11 @@
 import { Box, Button, Heading, Text } from "grommet";
 import React, { useEffect, useState } from "react";
+import { list_storage } from "./../services/list_storage";
 import { calcCrow, calcDirection } from "./country_utils";
 import "./emoji.css";
 import { CountryGuessRow } from "./modules/CountryGuessRow";
 import { DynamicSvg } from "./modules/DynamicSvg";
+import GuessScoreBoard from "./modules/GuessScoreBoard";
 import { GuessTable } from "./modules/GuessTable";
 import { InputSelect } from "./modules/InputSelect";
 import getCountries from "./useCountries";
@@ -18,6 +20,7 @@ class Guess {
   }
 }
 
+const gameType = "WorldCountries";
 const maxGuesses = 6;
 export const CountryGuesser = () => {
   const [countries, setcountries] = useState([]);
@@ -28,6 +31,10 @@ export const CountryGuesser = () => {
   const [chosenCountry, setChosenCountry] = useState();
   const [guessedCountry, setguessedCountry] = React.useState("");
   const [currentGuesses, setCurrentGuesses] = React.useState([]);
+  const [scores, setscores] = useState(
+    list_storage.getList(gameType) || new Array(maxGuesses + 1).fill(0)
+  );
+  const [streak, setstreak] = useState(0);
 
   useEffect(() => {
     console.info(`Starting round ${round}`);
@@ -46,6 +53,23 @@ export const CountryGuesser = () => {
     setguessedCountry("");
   }
 
+  function won() {
+    setRoundOver(true);
+    setstreak((s) => s + 1);
+    let index = currentGuesses.length;
+    scores[index] = scores[index] + 1;
+    setscores(scores);
+    list_storage.setList(gameType, scores);
+  }
+
+  function lost() {
+    setRoundOver(true);
+    setstreak(0);
+    scores[0] = scores[0] + 1;
+    setscores(scores);
+    list_storage.setList(gameType, scores);
+  }
+
   const attemptGuess = () => {
     if (!guessedCountry in countriesDict) {
       return;
@@ -54,13 +78,13 @@ export const CountryGuesser = () => {
     let guess = new Guess(chosen, chosenCountry);
     currentGuesses.push(guess);
     setCurrentGuesses(currentGuesses);
+    setguessedCountry("");
     if (chosen.name === chosenCountry.name) {
-      setRoundOver(true);
+      won();
       return;
     }
-    setguessedCountry("");
     if (currentGuesses.length >= maxGuesses) {
-      setRoundOver(true);
+      lost();
     }
   };
 
@@ -74,7 +98,7 @@ export const CountryGuesser = () => {
         align={"center"}
         justify={"center"}
         animation={{ type: "fadeIn" }}
-        style={{maxWidth: "850px"}}
+        style={{ maxWidth: "850px" }}
         alignContent="center"
       >
         <Box
@@ -110,10 +134,14 @@ export const CountryGuesser = () => {
               </Heading>
             </Box>
             <Box direction="column">
-              <Text>Population: {chosenCountry.population.toLocaleString()}</Text>
+              <Text>
+                Population: {chosenCountry.population.toLocaleString()}
+              </Text>
               <Text>Official Name: {chosenCountry.official_name}</Text>
               <Text>Continent: {chosenCountry.continents.join(", ")}</Text>
-              <Text>Area: {chosenCountry.area.toLocaleString()} km<sup>2</sup></Text>
+              <Text>
+                Area: {chosenCountry.area.toLocaleString()} km<sup>2</sup>
+              </Text>
             </Box>
           </Box>
         ) : (
@@ -138,7 +166,7 @@ export const CountryGuesser = () => {
             />
           </Box>
         ) : (
-          <Button onClick={() => nextRound()} label="Next!"/>
+          <Button onClick={() => nextRound()} label="Next!" />
         )}
 
         <GuessTable max={maxGuesses}>
@@ -151,6 +179,7 @@ export const CountryGuesser = () => {
             />
           ))}
         </GuessTable>
+        <GuessScoreBoard scores={scores} streak={streak} type={gameType} />
       </Box>
     );
   }
