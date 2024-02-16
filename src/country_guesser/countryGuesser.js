@@ -1,139 +1,137 @@
-import { Box, Button, Heading, Image, Select } from "grommet";
+import { Box, Button, Heading } from "grommet";
 import React, { useEffect, useState } from "react";
-import { ReactComponent as ReactLogo } from "./countries/ad/vector.svg";
-import { calcCrow } from "./country_utils";
+import { calcCrow, calcDirection } from "./country_utils";
 import "./emoji.css";
-import useCountries from "./useCountries";
+import { CountryGuessRow } from "./modules/CountryGuessRow";
+import { DynamicSvg } from "./modules/DynamicSvg";
+import { GuessTable } from "./modules/GuessTable";
+import { InputSelect } from "./modules/InputSelect";
+import getCountries from "./useCountries";
 
 class Guess {
   constructor(guessedCountry, actualCountry) {
-    this.guessedCountry = guessedCountry;
+    this.country = guessedCountry;
     console.info(guessedCountry);
-    let distanceKm = calcCrow(guessedCountry, actualCountry);
-    console.info(distanceKm);
+    this.distanceKm = calcCrow(guessedCountry, actualCountry);
+    console.info(this.distanceKm);
+    this.direction = calcDirection(guessedCountry, actualCountry);
   }
 }
 
-const maxDisplayedCountries = 40;
+const maxGuesses = 6;
 export const CountryGuesser = () => {
-  const [countries, countriesDict] = useCountries();
-  const [countryComp, setCountryComp] = useState(<Box />);
-  const [selectCountries, setSelectCountries] = useState([]);
+  const [countries, setcountries] = useState([]);
+  const [countriesDict, setcountriesDict] = useState([]);
+  // const [countryComp, setCountryComp] = useState(<Box />);
   const [round, setRound] = useState(0);
   const [roundOver, setRoundOver] = useState(false);
-  const [chosenCountry, setChosenCountry] = useState("");
-  const [currentCountry, setCurrentCountry] = React.useState("");
+  const [chosenCountry, setChosenCountry] = useState();
+  const [guessedCountry, setguessedCountry] = React.useState("");
   const [currentGuesses, setCurrentGuesses] = React.useState([]);
 
   useEffect(() => {
-    if (countries.length === 0) {
-      return;
-    }
-    setSelectCountries(countries.map((country) => country.name));
     console.info(`Starting round ${round}`);
-    setChosenCountry(countries[Math.floor(Math.random() * countries.length)]);
-  }, [round, countries]);
+    const [newCountries, newCountriesDict] = getCountries();
+    setcountries(newCountries);
+    setcountriesDict(newCountriesDict);
+    let newChosenCountry =
+      newCountries[Math.floor(Math.random() * newCountries.length)];
+    setChosenCountry(newChosenCountry);
+  }, [round]);
 
-  const updateSelectCountries = (value) => {
-    let selectedCountries = [];
-    for (let i = 0; i < countries.length; i++) {
-      let country = countries[i];
-      if (country.name.toLowerCase().indexOf(value.toLowerCase()) !== -1) {
-        selectedCountries.push(country.name);
-      }
-    }
-
-    setSelectCountries(selectedCountries);
-  };
+  function nextRound() {
+    setRound((r) => r + 1);
+    setRoundOver(false);
+    setCurrentGuesses([]);
+    setguessedCountry("");
+  }
 
   const attemptGuess = () => {
-    if (!currentCountry in countriesDict) {
+    if (!guessedCountry in countriesDict) {
       return;
     }
-    let chosen = countriesDict[currentCountry];
+    let chosen = countriesDict[guessedCountry];
     currentGuesses.push(new Guess(chosen, chosenCountry));
-    setCurrentCountry("");
+    setCurrentGuesses(currentGuesses);
+    setguessedCountry("");
+    if (currentGuesses.length >= maxGuesses) {
+      setRoundOver(true);
+    }
   };
 
-  return (
-    <Box
-      background={"brand"}
-      direction={"column"}
-      style={{ minHeight: "100%" }}
-    >
+  if (chosenCountry === undefined) {
+    return <Box>Loading...</Box>;
+  } else {
+    return (
       <Box
+        direction={"column"}
         flex={{ grow: 1 }}
         align={"center"}
         justify={"center"}
         animation={{ type: "fadeIn" }}
       >
-        <Box flex={{ grow: 4 }}>
-          <Heading
-            size={"large"}
-            level={"3"}
-            style={{
-              userSelect: "none",
-              margin: "10px 5px",
-              textAlign: "center",
-            }}
-          >
-            The country is {chosenCountry.name}{" "}
-          </Heading>
-          <Heading
-            style={{
-              fontFamily: "NotoColorEmojiLimited",
-              fontSize: "50px",
-              textAlign: "center",
-            }}
-          >
-            {chosenCountry.flag}
-          </Heading>
-          <ReactLogo style={{ width: "100%", height: "150px" }} />
-          {/* <RenderSvg name="ad"/> */}
-          <Image src={"./countries/" + chosenCountry.code_2 + "/vector.svg"} />
+        <Box
+          align="center"
+          background={{ color: "light-4" }}
+          style={{ padding: "40px", borderRadius: "50px" }}
+        >
+          <DynamicSvg
+            svgName={chosenCountry.code_2}
+            style={{ height: "250px" }}
+          />
         </Box>
 
         {roundOver ? (
-          <Heading level={"3"}>The country is {chosenCountry.name}</Heading>
+          <Box direction="row">
+            <Heading size={"large"} level={"4"}>
+              The country is {chosenCountry.name}
+            </Heading>
+            <Heading
+              style={{
+                fontFamily: "NotoColorEmojiLimited",
+                textAlign: "center",
+                marginLeft: "5px",
+              }}
+            >
+              {chosenCountry.flag}
+            </Heading>
+          </Box>
         ) : (
-          <Select
-            onSearch={updateSelectCountries}
-            options={selectCountries.splice(0, maxDisplayedCountries)}
-            value={currentCountry}
-            onChange={(option) => setCurrentCountry(option.value)}
-          />
+          <Box />
         )}
 
-        <Button
-          label="Submit"
-          onClick={attemptGuess}
-          style={{
-            marginTop: "15px",
-          }}
-        />
-      </Box>
+        {!roundOver ? (
+          <Box hidden={roundOver}>
+            <InputSelect
+              options={countries}
+              key={round}
+              value={guessedCountry}
+              optionNameOperand={(o) => o.name}
+              onChange={(option) => setguessedCountry(option.value)}
+            />
+            <Button
+              label="Submit"
+              onClick={attemptGuess}
+              style={{
+                marginTop: "15px",
+              }}
+            />
+          </Box>
+        ) : (
+          <Button onClick={() => nextRound()}>Next!</Button>
+        )}
 
-      <Box
-        direction={"row"}
-        justify={"center"}
-        margin={{ bottom: "small", right: "large", left: "large" }}
-      >
-        {/* <Button
-          label="Continue"
-          style={{ visibility: running ? "hidden" : "visible" }}
-          onClick={() => console.info("Next!")}
-        /> */}
+        <GuessTable max={maxGuesses}>
+          {currentGuesses.map((guess, i) => (
+            <CountryGuessRow
+              country={guess.country}
+              distance={guess.distanceKm}
+              direction={guess.direction}
+              key={i}
+            />
+          ))}
+        </GuessTable>
       </Box>
-
-      {/* <Box align={"center"}>
-        <Stopwatch running={running} time={time} setTime={setTime} />
-        <ScoreBoard
-          scores={scores}
-          type={"countryGuessing"}
-          averagesToShow={[1, 3]}
-          trimmedAveragesToShow={[]}
-        />
-      </Box> */}
-    </Box>
-  );
+    );
+  }
 };
