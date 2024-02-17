@@ -10,6 +10,7 @@ export class Country {
     this.population = country_object["population"]
     this.continents = country_object["continents"]
     this.area = country_object["area"]
+    this.capitals = country_object["capitals"]
   }
 }
 

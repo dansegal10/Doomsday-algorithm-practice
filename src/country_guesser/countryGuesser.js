@@ -32,7 +32,8 @@ export const CountryGuesser = () => {
   const [guessedCountry, setguessedCountry] = React.useState("");
   const [currentGuesses, setCurrentGuesses] = React.useState([]);
   const [scores, setscores] = useState(
-    list_storage.getList(gameType) || new Array(maxGuesses + 1).fill(0)
+    list_storage.getList(gameType, (o) => parseInt(o)) ||
+      new Array(maxGuesses + 1).fill(0)
   );
   const [streak, setstreak] = useState(0);
 
@@ -43,6 +44,7 @@ export const CountryGuesser = () => {
     setcountriesDict(newCountriesDict);
     let newChosenCountry =
       newCountries[Math.floor(Math.random() * newCountries.length)];
+    console.info(newChosenCountry);
     setChosenCountry(newChosenCountry);
   }, [round]);
 
@@ -135,12 +137,20 @@ export const CountryGuesser = () => {
             </Box>
             <Box direction="column">
               <Text>
-                Population: {chosenCountry.population.toLocaleString()}
+                <b>Population:</b> {chosenCountry.population.toLocaleString()}
               </Text>
-              <Text>Official Name: {chosenCountry.official_name}</Text>
-              <Text>Continent: {chosenCountry.continents.join(", ")}</Text>
               <Text>
-                Area: {chosenCountry.area.toLocaleString()} km<sup>2</sup>
+                <b>Official Name:</b> {chosenCountry.official_name}
+              </Text>
+              <Text>
+                <b>Continent:</b> {chosenCountry.continents.join(", ")}
+              </Text>
+              <Text>
+                <b>Area:</b> {chosenCountry.area.toLocaleString()} km
+                <sup>2</sup>
+              </Text>
+              <Text>
+                <b>Capital:</b> {chosenCountry.capitals.join(", ")}
               </Text>
             </Box>
           </Box>

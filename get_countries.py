@@ -3,9 +3,9 @@ from pathlib import Path
 
 # https://restcountries.com/v3.1/all
 countries_path = Path(
-    r"C:\Users\user\Desktop\programming\html\Doomsday-algorithm-practice\src\country_guesser\more_json.json")
+    r"C:\Users\user\Downloads\all_countries.json")
 countries2_path = Path(
-    r"C:\Users\user\Desktop\programming\html\Doomsday-algorithm-practice\src\country_guesser\countries2.json")
+    r"C:\Users\user\Desktop\programming\html\Doomsday-algorithm-practice\src\country_guesser\countries.json")
 territories_path = Path(
     r"C:\Users\user\Desktop\programming\html\Doomsday-algorithm-practice\src\country_guesser\territories.json")
 countries = json.loads(countries_path.read_bytes())
@@ -23,13 +23,16 @@ def format_country(old):
         "independent": old["independent"] if "independent" in old else False,
         "code_2": old["cca2"],
         "code_3": old["cca3"],
-        "flag": old["flag"]
+        "flag": old["flag"],
+        "area": old["area"],
+        "capitals": old["capital"] if "capital" in old else []
     }
 
 
 res_countries = []
 res_other = []
 for country in countries:
+    print(country["name"]["common"])
     country = format_country(country)
     independent = country["independent"]
     del country["independent"]
