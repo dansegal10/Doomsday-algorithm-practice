@@ -28,7 +28,7 @@ export default function GuessScoreBoard({ scores, type, streak }) {
           Scores:
         </Heading>
         <Box
-          width={"150px"}
+          width={"125px"}
           style={{
             border: "2px solid white",
             padding: "5px",
@@ -44,7 +44,7 @@ export default function GuessScoreBoard({ scores, type, streak }) {
                 wrap={true}
                 key={index}
               >
-                <Text color="black" style={{ width: "50%"}}>
+                <Text color="black" style={{ width: "45%"}}>
                   {index === 0 ? "DNF" : index}
                 </Text>
                 <Text color="white">{count}</Text>
@@ -53,7 +53,7 @@ export default function GuessScoreBoard({ scores, type, streak }) {
             .reverse()}
         </Box>
       </Box>
-      <Box align={"start"} style={{ padding: "15px" }} justify={"center"}>
+      <Box align={"start"} justify={"center"}>
         <Text>Current Streak: {streak}</Text>
         <Text color={newHighScore ? "orange" : "white"}>
           Best Streak: {bestStreak}

@@ -11,6 +11,7 @@ export class Country {
     this.continents = country_object["continents"]
     this.area = country_object["area"]
     this.capitals = country_object["capitals"]
+    this.languages = country_object["languages"]
   }
 }
 

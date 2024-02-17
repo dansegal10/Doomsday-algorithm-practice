@@ -152,6 +152,9 @@ export const CountryGuesser = () => {
               <Text>
                 <b>Capital:</b> {chosenCountry.capitals.join(", ")}
               </Text>
+              <Text>
+                <b>Languages:</b> {chosenCountry.languages.join(", ")}
+              </Text>
             </Box>
           </Box>
         ) : (
@@ -171,7 +174,7 @@ export const CountryGuesser = () => {
               label="Submit"
               onClick={attemptGuess}
               style={{
-                marginTop: "15px",
+                margin: "15px 0",
               }}
             />
           </Box>

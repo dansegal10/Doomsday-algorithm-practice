@@ -25,6 +25,7 @@ def format_country(old):
         "code_3": old["cca3"],
         "flag": old["flag"],
         "area": old["area"],
+        "languages": list(old["languages"].values()) if "languages" in old else [],
         "capitals": old["capital"] if "capital" in old else []
     }
 
