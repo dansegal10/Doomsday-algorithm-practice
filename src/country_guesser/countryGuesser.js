@@ -20,7 +20,7 @@ class Guess {
   }
 }
 
-const gameType = "WorldCountries";
+const gameType = "CountriesWorld";
 const maxGuesses = 6;
 export const CountryGuesser = () => {
   const [countries, setcountries] = useState([]);
