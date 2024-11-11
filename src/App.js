@@ -1,12 +1,13 @@
-import { Box, Grommet, Anchor } from "grommet";
+import { Anchor, Box, Grommet } from "grommet";
 import React, { useEffect } from "react";
 import GitHubButton from "react-github-btn";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
+import Header from "./components/Header";
+import { CountryGuesser } from "./country_guesser/countryGuesser";
 import useRoutePrefix from "./functions/useRoutePrefix";
 import { MindGames } from "./views/MindGames";
 import { Spyfall } from "./views/Spyfall";
-import { CountryGuesser } from "./country_guesser/countryGuesser";
 
 const theme = {
   global: {
@@ -22,10 +23,10 @@ const theme = {
     border: {
       color: "focus",
       radius: "18px",
-      width: "2px"
+      width: "2px",
     },
-    color: "white"
-  }
+    color: "white",
+  },
 };
 
 class View {
@@ -37,19 +38,16 @@ class View {
 }
 
 function App() {
+  const navigate = useNavigate();
   const [routePrefix] = useRoutePrefix(true);
   const views = [
     new View("Mind Games", "mind_games", <MindGames />),
     new View(
       "Spy Fall",
       "spy_fall",
-      <Spyfall exit={() => window.location.pathname = routePrefix} />
+      <Spyfall exit={() => (window.location.pathname = routePrefix)} />
     ),
-    new View(
-      "Country Guesser",
-      "country_guesser",
-      <CountryGuesser />
-    ),
+    new View("Country Guesser", "country_guesser", <CountryGuesser />),
   ];
 
   useEffect(() => {
@@ -58,29 +56,34 @@ function App() {
 
   return (
     <Grommet theme={theme} full>
+      <Header
+        onClick={navigate}
+        items={{
+          "Home": "/",
+          "Mind Games": "/mind_games",
+          "Spy Fall": "/spy_fall",
+          "Country Guesser": "/country_guesser",
+        }}
+      />
       <Box
         background={"brand"}
         direction={"column"}
-        style={{ minHeight: "100%" }}
+        style={{ height: "95%", topMargin: "5%" }}
       >
-        <BrowserRouter>
-          <Routes>
-            {views.map((view, i) => (
-              <Route
-                key={i}
-                path={routePrefix + view.url}
-                element={
+        <Routes>
+          {views.map((view, i) => (
+            <Route
+              key={i}
+              path={routePrefix + view.url}
+              element={
                 <Grommet theme={theme} full>
                   {view.componment}
-                </Grommet>}
-              />
-            ))}
-            <Route
-              path={routePrefix}
-              element={MainMenu(views)}
+                </Grommet>
+              }
             />
-          </Routes>
-        </BrowserRouter>
+          ))}
+          <Route path={routePrefix} element={MainMenu(views)} />
+        </Routes>
       </Box>
     </Grommet>
   );

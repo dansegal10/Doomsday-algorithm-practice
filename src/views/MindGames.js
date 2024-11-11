@@ -24,7 +24,7 @@ export function MindGames(props) {
 
   return (
     <div>
-      <Header chooseGame={chooseNewGame} games={games} />
+      <Header onClick={chooseNewGame} items={games} />
       {currentGame === doomsday ? (
         <DoomdsdayGame startDate={"1800-01-01"} endDate={"2199-12-31"} />
       ) : currentGame === numberMemory ? (

@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 
 function Header(props) {
     const [open, setOpen] = useState(false);
-    let chooseGame = props.chooseGame;
-    let games = props.games;
+    let onClick = props.onClick;
+    let items = props.items;
 
     return (
         <Box>
@@ -37,17 +37,17 @@ function Header(props) {
                 background="white"
                 round="small"
                 pad="small"
-                gap="large"
+                gap="small"
                 style={{ position: "absolute", display: open ? "block" : "none", marginTop: "50px", zIndex: 12 }}>
-                {Object.entries(games).map(([name, value], i) =>
+                {Object.entries(items).map(([name, value], i) =>
                     typeof (value) === "object" ?
                         <Menu key={i} label={name} items={value.map(v => {
                             return {
                                 label: v,
-                                onClick: () => { chooseGame(name, v); setOpen(false) }
+                                onClick: () => { onClick(name, v); setOpen(false) }
                             }
                         })} /> :
-                        <Button key={i} hoverIndicator onClick={() => { chooseGame(name, ""); setOpen(false) }}> {name} </Button>
+                        <Button key={i} hoverIndicator onClick={() => { onClick(value, ""); setOpen(false) }}> {name} </Button>
                 )}
             </Box>
         </Box>
