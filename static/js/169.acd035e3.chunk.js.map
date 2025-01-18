@@ -1,1 +1,0 @@
-{"version":3,"sources":["country_guesser/countries/nz/vector.svg"],"names":["module","exports"],"mappings":"qGAAAA,EAAOC,QAAU,IAA0B","file":"static/js/169.acd035e3.chunk.js","sourcesContent":["module.exports = __webpack_public_path__ + \"static/media/vector.678fee08.svg\";"],"sourceRoot":""}

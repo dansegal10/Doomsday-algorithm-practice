@@ -1,0 +1,2 @@
+(this["webpackJsonpmath-games"]=this["webpackJsonpmath-games"]||[]).push([[192],{307:function(s,t,a){s.exports=a.p+"static/media/vector.7575319c.svg"}}]);
+//# sourceMappingURL=192.b1acf95c.chunk.js.map
