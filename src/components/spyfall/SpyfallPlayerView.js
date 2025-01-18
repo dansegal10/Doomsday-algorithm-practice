@@ -1,36 +1,43 @@
 import { Box, Button, Text } from "grommet";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import { SpyFallConfirmButton } from "./SpyFallConfirmButton";
 
 export function SpyfallPlayerView({
   currentPlayer,
   chosenLocation,
   isSpy,
   nextPlayer,
+  prevPlayer
 }) {
   const [hidden, sethidden] = useState(true);
-  const btnRef = useRef(null);
 
   return (
     <Box>
       <Text>Pass to {currentPlayer.name}</Text>
-      <Button
-        ref={btnRef}
-        onClick={() => sethidden((current) => !current)}
+      <SpyFallConfirmButton
+        text="Press button to show role."
+        confirmText="This is for your eyes only."
+        noConfirmDisable={true}
+        onTrigger={() => sethidden(false)}
+        onDisable={() => sethidden(true)}
       >
         Show Role
-      </Button>
-      <Text>
-        {hidden
-          ? "Press Button to show role"
-          : isSpy
-          ? "You are the spy!"
-          : `The location is ${chosenLocation}`}
-      </Text>
+      </SpyFallConfirmButton>
+      {hidden ? (
+        <></>
+      ) : isSpy ? (
+        <Text margin="auto">You are the spy</Text>
+      ) : (
+        <>
+          <Text margin="auto">The location is:</Text>
+          <Text margin="auto" style={{ fontSize: "larger" }}>
+            {chosenLocation}
+          </Text>
+        </>
+      )}
 
-      <Button
-        onClick={nextPlayer}
-        label="Next Player"
-      />
+      <Button onClick={nextPlayer} label="Next Player" />
+      <Button onClick={prevPlayer} label="Previous Player" />
     </Box>
   );
 }

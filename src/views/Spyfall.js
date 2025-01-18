@@ -12,7 +12,46 @@ const GameStages = {
   playing: 3,
   finished: 4,
 };
+class GameLocations {
+  constructor(playerLocations) {
+    this.playersWithLocation = playerLocations;
+    this.defaultLocations = require("../components/spyfall/locations_hebrew.json");
+    this.useDefaultLocations = false;
+  }
 
+  _locations() {
+    if (this.useDefaultLocations) {
+      return [...this.playersWithLocation, ...this.defaultLocations];
+    }
+    return this.playersWithLocation;
+  }
+
+  triggerDefaultLocations() {
+    this.useDefaultLocations = !this.useDefaultLocations;
+    console.log(`Use default locations: ${this.useDefaultLocations}`);
+  }
+
+  getPlayerLocationsLength() {
+    return this.playersWithLocation.length;
+  }
+
+  getLength() {
+    return this._locations().length;
+  }
+
+  getLocation() {
+    let locations = this._locations();
+    let chosenIndex = Math.floor(Math.random() * locations.length);
+    console.log(`Chosen index: ${chosenIndex}`);
+    console.log(this.defaultLocations);
+    if (chosenIndex < this.playersWithLocation.length) {
+      return [chosenIndex, locations[chosenIndex].location];
+    }
+    console.log(locations);
+    console.log(locations[chosenIndex]);
+    return [-1, locations[chosenIndex]];
+  }
+}
 function InitializeSpyFall(props) {
   return (
     <Box>
@@ -27,20 +66,40 @@ function InitializeSpyFall(props) {
   );
 }
 
-function SpyfallAdminStart(props) {
+function SpyfallAdminStart({
+  playersCount,
+  spyAmount,
+  setspyAmount,
+  gameLocations,
+  startPassing,
+}) {
+  const [locationCount, setLocationCount] = useState(
+    gameLocations.getPlayerLocationsLength()
+  );
+
   return (
     <Box>
-      <Text>Player Count: {props.length}</Text>
-      <Text>Valid location Count: {props._length}</Text>
+      <Text>Player Count: {playersCount}</Text>
+      <Text>
+        Player location Count: {gameLocations.getPlayerLocationsLength()}
+      </Text>
+      <Text>Game location Count: {locationCount}</Text>
       <Text>Spy Count:</Text>
       <TextInput
         placeholder="Spy Count"
         type={"number"}
-        value={props.spyAmount}
-        onChange={(event) => props.setspyAmount(event.target.value)}
+        value={spyAmount}
+        onChange={(event) => setspyAmount(event.target.value)}
       />
       <Button
-        onClick={() => props.startPassing()}
+        onClick={() => {
+          gameLocations.triggerDefaultLocations();
+          setLocationCount(gameLocations.getLength());
+        }}
+        label="Trigger default locations"
+      ></Button>
+      <Button
+        onClick={() => startPassing(gameLocations)}
         label="Begin!"
       ></Button>
     </Box>
@@ -73,15 +132,15 @@ function SpyfallPlaying(props) {
 }
 
 export function Spyfall({ exit }) {
-  const [gameStage, setgameStage] = useState(GameStages.initializing);
-  // const [gameStage, setgameStage] = useState(GameStages.adminStart);
-  const [players, setplayers] = useState([]);
-  // const [players, setplayers] = useState([
-  // new SpyfallPlayer(0, "Player 1", ""),
-  // new SpyfallPlayer(1, "Player 2", "aaa"),
-  // new SpyfallPlayer(2, "Player 3", ""),
-  // new SpyfallPlayer(3, "Player 4", ""),
-  // ]);
+  //const [gameStage, setgameStage] = useState(GameStages.initializing);
+  const [gameStage, setgameStage] = useState(GameStages.adminStart);
+  // const [players, setplayers] = useState([]);
+  const [players, setplayers] = useState([
+    new SpyfallPlayer(0, "Player 1", ""),
+    new SpyfallPlayer(1, "Player 2", "aaa"),
+    new SpyfallPlayer(2, "Player 3", ""),
+    new SpyfallPlayer(3, "Player 4", ""),
+  ]);
   const [time, setTime] = useState(0);
   const [chosenLocation, setchosenLocation] = useState();
   const [chosenSpiesIds, setchosenSpiesIds] = useState([]);
@@ -101,29 +160,31 @@ export function Spyfall({ exit }) {
     setplayers([...players, newPlayer]);
   };
 
-  const getValidLocations = () => {
-    return players.filter((player) => player.location.length > 0);
+  const getGameLocations = () => {
+    return new GameLocations(
+      players.filter((player) => player.location.length > 0)
+    );
   };
 
-  const initializeSpyfallGame = () => {
-    let playersWithLocations = getValidLocations();
-    console.info(`Got ${playersWithLocations.length} valid locations`);
-    if (playersWithLocations.length === 0) {
+  const initializeSpyfallGame = (locations) => {
+    if (locations.length === 0) {
       alert("No valid locations!");
       exit();
       return;
     }
-    let chosenPlayer =
-      playersWithLocations[
-        Math.floor(Math.random() * playersWithLocations.length)
-      ];
-    console.info(`Chosen location of player i. ${chosenPlayer.index}`);
-    setchosenLocation(chosenPlayer.location);
+    let [chosenPlayerIndex, chosenLocation] = locations.getLocation();
+    console.info(
+      `Chosen location of player i. ${chosenPlayerIndex} - ${chosenLocation}`
+    );
+    setchosenLocation(chosenLocation);
 
-    let invalidSpyIds = [chosenPlayer.index];
+    let invalidSpyIds = [];
+    if (chosenPlayerIndex !== -1) {
+      invalidSpyIds.push(chosenPlayerIndex);
+    }
     let spies = [];
 
-    if (players.length - invalidSpyIds.length < spyAmount){
+    if (players.length - invalidSpyIds.length < spyAmount) {
       alert("Too many spies!");
       exit();
       return;
@@ -146,6 +207,12 @@ export function Spyfall({ exit }) {
     setchosenSpiesIds(spies);
   };
 
+  const passToPrevPlayer = () => {
+    if (currentPlayerIndex > 0) {
+      setcurrentPlayerIndex(currentPlayerIndex - 1);
+    }
+  };
+
   const passToNextPlayer = () => {
     if (currentPlayerIndex < players.length - 1) {
       setcurrentPlayerIndex(currentPlayerIndex + 1);
@@ -154,9 +221,9 @@ export function Spyfall({ exit }) {
     }
   };
 
-  const startPassing = () => {
+  const startPassing = (locations) => {
     setgameStage(GameStages.passing);
-    initializeSpyfallGame();
+    initializeSpyfallGame(locations);
   };
 
   return (
@@ -184,10 +251,10 @@ export function Spyfall({ exit }) {
         ></InitializeSpyFall>
       ) : gameStage === GameStages.adminStart ? (
         <SpyfallAdminStart
-          length={players.length}
+          playersCount={players.length}
           spyAmount={spyAmount}
           setspyAmount={setspyAmount}
-          _length={getValidLocations().length}
+          gameLocations={getGameLocations()}
           startPassing={startPassing}
         ></SpyfallAdminStart>
       ) : gameStage === GameStages.passing ? (
@@ -197,6 +264,7 @@ export function Spyfall({ exit }) {
           currentPlayer={players[currentPlayerIndex]}
           isSpy={chosenSpiesIds.includes(currentPlayerIndex)}
           nextPlayer={() => passToNextPlayer()}
+          prevPlayer={() => passToPrevPlayer()}
         />
       ) : gameStage === GameStages.playing ? (
         <SpyfallPlaying
@@ -214,10 +282,7 @@ export function Spyfall({ exit }) {
           {chosenSpiesIds.map((spyId, i) => (
             <Text key={i}>{players[spyId].name}</Text>
           ))}
-          <Button
-            label="Next Round!"
-            onClick={exit}
-          ></Button>
+          <Button label="Next Round!" onClick={exit}></Button>
         </Box>
       )}
     </Box>

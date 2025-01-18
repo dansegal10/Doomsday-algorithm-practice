@@ -8,6 +8,7 @@ import { CountryGuesser } from "./country_guesser/countryGuesser";
 import useRoutePrefix from "./functions/useRoutePrefix";
 import { MindGames } from "./views/MindGames";
 import { Spyfall } from "./views/Spyfall";
+import CityAlphabet from './components/cityAlphabet/CityAlphabet';
 
 const theme = {
   global: {
@@ -48,6 +49,7 @@ function App() {
       <Spyfall exit={() => (window.location.pathname = routePrefix)} />
     ),
     new View("Country Guesser", "country_guesser", <CountryGuesser />),
+    // new View("City Alphabet", "city_alphabet", <CityAlphabet />),
   ];
 
   useEffect(() => {
@@ -57,12 +59,10 @@ function App() {
   return (
     <Grommet theme={theme} full>
       <Header
-        onClick={navigate}
+        onClick={(v) => navigate(routePrefix + v)}
         items={{
-          "Home": "/",
-          "Mind Games": "/mind_games",
-          "Spy Fall": "/spy_fall",
-          "Country Guesser": "/country_guesser",
+          Home: "",
+          ...Object.fromEntries(views.map((view) => [view.display, view.url])),
         }}
       />
       <Box
