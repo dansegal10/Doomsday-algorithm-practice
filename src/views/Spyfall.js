@@ -132,15 +132,15 @@ function SpyfallPlaying(props) {
 }
 
 export function Spyfall({ exit }) {
-  //const [gameStage, setgameStage] = useState(GameStages.initializing);
-  const [gameStage, setgameStage] = useState(GameStages.adminStart);
-  // const [players, setplayers] = useState([]);
-  const [players, setplayers] = useState([
-    new SpyfallPlayer(0, "Player 1", ""),
-    new SpyfallPlayer(1, "Player 2", "aaa"),
-    new SpyfallPlayer(2, "Player 3", ""),
-    new SpyfallPlayer(3, "Player 4", ""),
-  ]);
+  const [gameStage, setgameStage] = useState(GameStages.initializing);
+  //const [gameStage, setgameStage] = useState(GameStages.adminStart);
+   const [players, setplayers] = useState([]);
+  //const [players, setplayers] = useState([
+  //  new SpyfallPlayer(0, "Player 1", ""),
+  //  new SpyfallPlayer(1, "Player 2", "aaa"),
+  //  new SpyfallPlayer(2, "Player 3", ""),
+  //  new SpyfallPlayer(3, "Player 4", ""),
+  //]);
   const [time, setTime] = useState(0);
   const [chosenLocation, setchosenLocation] = useState();
   const [chosenSpiesIds, setchosenSpiesIds] = useState([]);
